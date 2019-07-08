@@ -18,7 +18,7 @@ class TemperatureWidget extends StatelessWidget {
           child: Text(
             '${_formattedTemperature(temperature)}°',
             style: TextStyle(
-                fontSize: 32, fontWeight: FontWeight.w600, color: Colors.white),
+                fontSize: 32, fontWeight: FontWeight.w600),
           ),
         ),
         Column(
@@ -28,7 +28,6 @@ class TemperatureWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w100,
-                color: Colors.white,
               ),
             ),
             Text(
@@ -36,7 +35,6 @@ class TemperatureWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w100,
-                color: Colors.white,
               ),
             )
           ],

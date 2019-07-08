@@ -36,7 +36,6 @@ class CombineWeatherTemperatureWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w200,
-              color: Colors.white,
             ),
           ),
         ),

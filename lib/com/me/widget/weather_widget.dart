@@ -18,10 +18,6 @@ class WeatherWidget extends StatefulWidget {
 }
 
 class _WeatherWidgetState extends State<WeatherWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,3 +68,4 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     );
   }
 }
+
