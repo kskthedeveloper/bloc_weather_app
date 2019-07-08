@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 class CombineWeatherTemperatureWidget extends StatelessWidget {
+  final Weather weather;
 
-  CombineWeatherTemperatureWidget({Key key})
+  CombineWeatherTemperatureWidget({Key key, @required this.weather})
       : super(key: key);
 
   @override
@@ -18,21 +19,21 @@ class CombineWeatherTemperatureWidget extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.all(20.0),
-              child: WeatherConditionWidget(condition: WeatherCondition.LIGHT_CLOUD),
+              child: WeatherConditionWidget(condition: weather.condition),
             ),
             Padding(
               padding: EdgeInsets.all(20.0),
               child: TemperatureWidget(
-                temperature: 30,
-                high: 35,
-                low: 20,
+                temperature: weather.temp,
+                high: weather.minTemp,
+                low: weather.minTemp,
               ),
             )
           ],
         ),
         Center(
           child: Text(
-            "CLOUDY",
+            weather.formattedCondition,
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w200,
