@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc_weather_app/com/me/bloc/weather_state.dart';
+import 'package:bloc_weather_app/com/me/widget/setting_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:bloc_weather_app/com/me/bloc/fetch_weather.dart';
@@ -42,7 +43,9 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute());
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) => SettingWidget()
+              ));
             },
           ),
           IconButton(
