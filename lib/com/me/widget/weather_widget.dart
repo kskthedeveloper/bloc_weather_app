@@ -24,10 +24,12 @@ class WeatherWidget extends StatefulWidget {
 
 class _WeatherWidgetState extends State<WeatherWidget> {
   WeatherBloc _weatherBloc;
+  Completer<void> _refreshCompleter;
 
   @override
   void initState() {
     super.initState();
+    _refreshCompleter = Completer<void>();
     _weatherBloc = WeatherBloc(weatherRepository: widget.weatherRepository);
   }
 
@@ -79,34 +81,60 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             if (state is WeatherLoaded) {
               final weather = state.weather;
 
-              return ListView(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(top: 100.0),
-                    child: Center(
-                      child: LocationWidget(
-                        location: weather.location,
+              _refreshCompleter?.complete();
+              _refreshCompleter = Completer();
+
+              return RefreshIndicator(
+                onRefresh: () {
+                  _weatherBloc.dispatch(
+                    RefreshWeather(city: state.weather.location)
+                  );
+                  return _refreshCompleter.future;
+                },
+                child: ListView(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 100.0),
+                      child: Center(
+                        child: LocationWidget(
+                          location: weather.location,
+                        ),
                       ),
                     ),
-                  ),
-                  Center(
-                    child: LastUpdatedWidget(dateTime: weather.lastUpdated),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 50.0),
-                    child: Center(
-                      child: CombineWeatherTemperatureWidget(
-                        weather: weather
-                      ),
+                    Center(
+                      child: LastUpdatedWidget(dateTime: weather.lastUpdated),
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 50.0),
+                      child: Center(
+                        child: CombineWeatherTemperatureWidget(
+                          weather: weather
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }
+
+            if(state is WeatherError) {
+              return Text(
+                'Something went wrong',
+                style: TextStyle(
+                    color: Colors.red
+                ),
               );
             }
           }
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _weatherBloc.dispose();
+    super.dispose();
   }
 }
 

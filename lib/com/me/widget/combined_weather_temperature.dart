@@ -8,7 +8,7 @@ class CombineWeatherTemperatureWidget extends StatelessWidget {
   final Weather weather;
 
   CombineWeatherTemperatureWidget({Key key, @required this.weather})
-      : super(key: key);
+      : assert(weather != null), super(key: key);
 
   @override
   Widget build(BuildContext context) {
